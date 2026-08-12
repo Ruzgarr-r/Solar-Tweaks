@@ -1,11 +1,27 @@
-name: 'Build'
+name: 'Build All Platforms'
+
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            flag: --linux
+            artifact_pattern: dist/*.AppImage
+          - os: macos-latest
+            flag: --mac
+            artifact_pattern: dist/*.dmg
+          - os: windows-latest
+            flag: --win
+            artifact_pattern: dist/*.exe
+
     steps:
       - uses: actions/checkout@v4
 
@@ -15,13 +31,9 @@ jobs:
 
       - run: npm install
 
-      # Hem Windows (.exe) hem Linux (.AppImage) derlemesi yapar
-      - run: npm run build -- --win --linux -p never
+      - run: npm run build -- ${{ matrix.flag }} -p never
 
-      # Oluşan derleme dosyalarını GitHub Actions paneline yükler
       - uses: actions/upload-artifact@v4
         with:
-          name: Solar-Tweaks-Executables
-          path: |
-            dist/*.AppImage
-            dist/*.exe
+          name: Solar-Tweaks-${{ matrix.os }}
+          path: ${{ matrix.artifact_pattern }}
