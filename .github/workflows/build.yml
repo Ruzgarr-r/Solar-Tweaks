@@ -10,6 +10,7 @@ jobs:
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false # Bir işletim sistemi çökse bile diğerlerinin çalışmasını engellemez
       matrix:
         include:
           - os: ubuntu-latest
@@ -28,6 +29,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 16
+
+      # macOS üzerindeki DMG oluşturma adımı Python gerektirir
+      - name: Setup Python for macOS
+        if: matrix.os == 'macos-latest'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Eski electron-builder sürümleri için python3 -> python symlink'i oluşturur
+      - name: Create Python Symlink for macOS
+        if: matrix.os == 'macos-latest'
+        run: |
+          mkdir -p $HOME/.local/bin
+          ln -s $(which python3) $HOME/.local/bin/python
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - run: npm install
 
