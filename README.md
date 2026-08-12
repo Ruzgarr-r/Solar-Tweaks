@@ -29,7 +29,7 @@ Tweak and customize your game by going to the **Customize** tab, change the laun
 
 Solar Tweaks is fully open source which means you can build it from source and add your own modifications to it. To do so, clone this repository using
 ```bash
-$ git clone https://github.com/Solar-Tweaks/Solar-Tweaks.git
+$ git clone https://github.com/Ruzgarr-r/Solar-Tweaks.git
 ```
 Once the repo is downloaded move to the directory and install the dependencies
 ```bash
@@ -49,7 +49,7 @@ $ npm run build
 
 There are a lot of ways to contribute to Solar Tweaks:
 
-- Fork the repository and make your own modifications and then open a [pull request](https://github.com/Solar-Tweaks/Solar-Tweaks/pulls)
-- You can [submit bugs](https://github.com/Solar-Tweaks/Solar-Tweaks/issues)
+- Fork the repository and make your own modifications and then open a [pull request](https://github.com/Ruzgarr-r/Solar-Tweaks/pulls)
+- You can [submit bugs](https://github.com/Ruzgarr-r/Solar-Tweaks/issues)
 - Help other users in our [Discussions page](https://github.com/orgs/Solar-Tweaks/discussions)
 
